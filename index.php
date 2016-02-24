@@ -2,10 +2,14 @@
 include "lib/card.php";
 include "lib/player.php";
 
-$p1 = Player::add("Adolf Hitler","assets/player_image/hitler.png");
-$p2 = Player::add("Joseph Stalin","http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,h_1200,q_80,w_1200/MTE5NTU2MzE2Mzc0NDY4MTA3.jpg");
-$p3 = Player::add("Emperor Hirohito","http://www.ducksters.com/history/world_war_ii/hirohito.jpg");
-$p4 = Player::add("Hideki Tojo","http://www.nndb.com/people/950/000091677/tojo.jpg");
+
+if(isset($_POST['p1'])){
+    $p1 = Player::add("Adolf Hitler","assets/player_image/hitler.png");
+    $p2 = Player::add("Joseph Stalin","http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,h_1200,q_80,w_1200/MTE5NTU2MzE2Mzc0NDY4MTA3.jpg");
+    $p3 = Player::add("Emperor Hirohito","http://www.ducksters.com/history/world_war_ii/hirohito.jpg");
+    $p4 = Player::add("Hideki Tojo","http://www.nndb.com/people/950/000091677/tojo.jpg"); 
+}
+
 ?><hmtl>
 
     <head>
@@ -19,7 +23,26 @@ $p4 = Player::add("Hideki Tojo","http://www.nndb.com/people/950/000091677/tojo.j
     </head>
 
     <body>
+        <?php if(!isset($_POST['p1'])){  ?>
+        <form action="player.php" method="POST">
+            <div>
+                <label>Player 1:</label><input type="text" name="p1"/>
+            </div>
+            <div>
+                <label>Player 2:</label><input type="text" name="p2"/>
+            </div>
+            <div>
+                <label>Player 3:</label><input type="text" name="p3"/>
+            </div>
+            <div>
+                <label>Player 4:</label><input type="text" name="p4"/>
+            </div>
+            
+            <input type="submit" value="Play!" />
+            <input type="reset" value="Clear Form" />
+        </form>
         <?php
+        }else{
             $count = mt_rand(4,6);
             $p1->pickCards($count);
             $p2->pickCards($count);
@@ -77,6 +100,7 @@ $p4 = Player::add("Hideki Tojo","http://www.nndb.com/people/950/000091677/tojo.j
             }
             ?>
         </table>
+        <?php } ?>
     </body>
 
 </html>
