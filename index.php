@@ -3,17 +3,16 @@ include "lib/card.php";
 include "lib/player.php";
 
 
-if(isset($_POST['p1'])){
+/*if(isset($_POST['p1'])){
     $p1 = Player::add("Adolf Hitler","assets/player_image/hitler.png");
     $p2 = Player::add("Joseph Stalin","http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,h_1200,q_80,w_1200/MTE5NTU2MzE2Mzc0NDY4MTA3.jpg");
     $p3 = Player::add("Emperor Hirohito","http://www.ducksters.com/history/world_war_ii/hirohito.jpg");
-    $p4 = Player::add("Hideki Tojo","http://www.nndb.com/people/950/000091677/tojo.jpg"); 
-}
+    $p4 = Player::add("Hideki Tojo","http://www.nndb.com/people/950/000091677/tojo.jpg"); */
 
 ?><hmtl>
 
     <head>
-        <title>Counting Fucking Cards</title>
+        <title>Silverjack</title>
         <style>
             .winner{
                 color:#ff0600;
@@ -22,9 +21,10 @@ if(isset($_POST['p1'])){
         </style>
     </head>
 
-    <body>
-        <?php if(!isset($_POST['p1'])){  ?>
-        <form action="player.php" method="POST">
+    <body background="http://www.solitaire-pyramid.com/solitaire/images/backgrounds/1920x1200/green_felt.jpg">
+        
+        <head><b>Fill in your name and hit play!</b></head>
+        <form action="index.php" method="POST">
             <div>
                 <label>Player 1:</label><input type="text" name="p1"/>
             </div>
@@ -41,9 +41,16 @@ if(isset($_POST['p1'])){
             <input type="submit" value="Play!" />
             <input type="reset" value="Clear Form" />
         </form>
-        <?php
-        }else{
-            $count = mt_rand(4,6);
+
+        
+        <?php 
+        if(!isset($_POST['submit'])){ 
+        $p1 = Player::add($_POST['p1'], "http://clipartsign.com/upload/2016/02/11/stick-figure-pics-clipart.jpeg");
+        $p2 = Player::add($_POST['p2'], "http://blogs.technet.com/resized-image.ashx/__size/550x0/__key/communityserver-blogs-components-weblogfiles/00-00-00-91-10/3513.StickFigure_5F00_GradCap.png");
+        $p3 = Player::add($_POST['p3'], "http://vignette4.wikia.nocookie.net/battlefordreamisland/images/5/5b/My_stick_figure.png/revision/latest?cb=20111203123444");
+        $p4 = Player::add($_POST['p4'], "http://vignette4.wikia.nocookie.net/random-ness/images/4/4b/Michael_the_Stick_Figure.png/revision/latest?cb=20120922121447");
+        
+        $count = mt_rand(4,6);
             $p1->pickCards($count);
             $p2->pickCards($count);
             $p3->pickCards($count);
@@ -61,6 +68,7 @@ if(isset($_POST['p1'])){
                     $winner[] = $player;
                 }
             }
+        }
         ?>
         <br/>
         <table>
@@ -100,7 +108,7 @@ if(isset($_POST['p1'])){
             }
             ?>
         </table>
-        <?php } ?>
+        <?php  ?>
     </body>
 
 </html>
